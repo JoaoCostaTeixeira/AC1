@@ -1,0 +1,20 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.all;
+use numeric_std.all;
+
+entity Multiplexer is
+	generic positive MUX_BUS_WIDTH = 32;
+	port( in1	: in std_logic_vector(MUX_BUS_WIDTH-1 downto 0);
+			in2	: in std_logic_vector(MUX_BUS_WIDTH-1 downto 0);
+			sel 	: in std_logic;
+			out 	: out std_logic_vector(MUX_BUS_WIDTH-1 downto 0));
+end Multiplexer;
+
+architecture Behavioral of Multiplexer is
+	begin
+		if (sel == 1) 
+			out <= in2;
+		else
+			out <= in1;
+		end if;
+end Behavioral;

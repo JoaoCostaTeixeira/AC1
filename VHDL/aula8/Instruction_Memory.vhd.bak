@@ -1,0 +1,22 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+
+entity Instruction_Memory is 
+	generic(ADDR_BUS_SIZE : positive := 4);
+	port(address : in std_logic_vector(ADD_BUS_SIZE-1 downto 0);
+			redData : out std_logic_vector(31 downto 0));
+end Instruction_Memory;
+
+architecture Behavioral of Instruction_Memory is
+	constant NUM_WORDS : positive := (2 ** ADDR_BUS_SIZE);
+	subtype TData is std_logic_vector(31 downto 0);
+	type TMemory is Array(0 to NUM_WORDS -1) of TData;
+	constant s_memory : TMemory :=
+	
+	
+	
+	begin
+		readData <= s_memory(to_integer(unsigned(address)));
+end Behavioral;

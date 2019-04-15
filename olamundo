@@ -1,0 +1,10 @@
+	.data
+str: 	.ascii "ola Mundo"
+	.globl main
+	
+	.text
+main: 	la	$a0, str
+	ori	$v0,$0, 4 	#$v0=4
+	syscall
+
+	jr	$ra #devolve a execução; termina o programa

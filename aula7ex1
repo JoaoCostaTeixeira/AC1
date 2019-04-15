@@ -1,0 +1,51 @@
+          
+# Mapa de registos
+# res: $v0
+# s: $a0
+# *s: $t0
+# digit: $t1
+# Sub-rotina terminal: não devem ser usados registos $sx	
+ 	
+ 	.data
+str :   .asciiz "101101"
+	.eqv print_int10, 1
+	.text
+	.globl main
+	
+main: subu $sp, $sp, 4
+	sw $ra, 0($sp)
+	la $a0, str
+	jal atoib
+	move $a0, $v0
+	li $v0, print_int10
+	syscall
+	li $v0, 0
+	lw $ra, 0($sp)
+	addu $sp, $sp, 4
+	jr $ra 
+
+#decimal
+
+atoi:	li $v0, 0  # res= 0;
+while:  lb $t0, 0($a0) #$t0 = *s
+	blt $t0, '0', endw
+	bgt $t0, '9', endw
+	subiu $t1, $t0, '0'  # digit = *s - '0'
+	addiu $a0, $a0, 1  # s++
+	mul $v0, $v0, 10  # res = res*10
+	add $v0, $v0, $t1 # res = res + digit
+	j while
+endw: jr $ra
+
+#binario
+atoib:	li $v0, 0  # res= 0;
+whileb:  lb $t0, 0($a0) #$t0 = *s
+	blt $t0, '0', endwb
+	bgt $t0, '1', endwb
+	subiu $t1, $t0, '	0'  # digit = *s - '0'
+	addiu $a0, $a0, 1  # s++
+	mul $v0, $v0, 2  # res = res*2
+	add $v0, $v0, $t1 # res = res + digit
+	j whileb
+endwb: jr $ra
+

@@ -1,0 +1,49 @@
+# Mapa de registos:
+# $t0 – soma
+# $t1 – value
+# $t2 - i
+	 .data
+str1: .asciiz "Introduza um numero: "
+str2: .asciiz "Valor ignorado"
+str3: .asciiz "A soma dos positivos e': "
+ 	.eqv print_string,4
+	.eqv read_int,5
+	.eqv print_int, 1
+	.text
+	.globl main
+main: 	li $t0, 0 # $t0 = 0
+	li $t2, 0 # $t1 = 0
+
+for: bge $t2, 5, endfor
+	la $a0, str1
+	ori $v0, $0, print_string # print_string("Introduza um numero: ")
+	syscall
+
+	ori $v0, $0, read_int 
+	syscall 			#	value = read_int();  v
+	move $t1, $v0
+	
+	
+      ble $t1, 0, else
+      add $t0, $t0, $t1			# soma = soma + value, 
+      j end if	
+      
+else:   la $a0, str2
+	ori $v0, $0, print_string     # print_string("Valor ignorado")
+	syscall
+	j for
+	
+end if: add $t2, $t2, 1			# i=i+1
+	j for
+	
+endfor:
+	
+	la	$a0, str3
+	ori $v0, $0, print_string	#	print_string("A soma dos positivos e':");
+	syscall
+	
+	ori $v0, $0, print_int
+	move $a0, $t0			# print_int(soma)
+	syscall
+	
+	jr $ra  			# fim do programa

@@ -1,0 +1,6 @@
+	 .text
+ 	.globl main
+main:
+	nor $t1,$t0,$0 #not $t0
+ 
+	jr $ra
